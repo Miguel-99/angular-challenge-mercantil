@@ -3,6 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  baseApiUrl: "https://servicios.qamercantilandina.com.ar/api/v1",
+  baseMockApiUrl: "https://servicios.qamercantilandina.com.ar/api_mock_frontend/v1",
+  baseApiGeoRefUrl: "https://apis.datos.gob.ar/georef/api",
   production: false
 };
 

@@ -1,4 +1,4 @@
-import { IBrand } from "./IBrand";
-
-export interface Version extends IBrand{
+export interface IVersion {
+    description: string;
+    codigo: number;
 }

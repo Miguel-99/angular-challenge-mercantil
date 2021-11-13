@@ -1,0 +1,30 @@
+<ng-container [ngSwitch]="stepperOrientation | async">
+</ng-container>
+<mat-stepper class="example-stepper" [orientation]="(stepperOrientation | async)!" linear="true">
+  <mat-step label="Personal Data" linear="true" errorMessage="Faltan datos">
+    <app-personal-data></app-personal-data>
+  </mat-step>
+  <mat-step  label="Vehicle data">
+    <app-vehicle-data></app-vehicle-data>
+  </mat-step>
+  <mat-step [stepControl]="thirdFormGroup" label="Coverage Available">
+    <form [formGroup]="thirdFormGroup">
+      <mat-form-field appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Summary</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button  matStepperPrevious class="btn btn-primary">Back</button>
+    </div>
+
+  </mat-step>
+</mat-stepper>

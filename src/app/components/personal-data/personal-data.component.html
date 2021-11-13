@@ -1,0 +1,148 @@
+<form [formGroup]="myForm">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="fill" class="col">
+
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" required>
+                    <mat-error *ngIf="nombre?.invalid">
+                        Nombre invalido
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="fill" class="col">
+
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName="apellido" required>
+                    <mat-error *ngIf="apellido?.invalid">
+                        incorrect user
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="contenido">
+            <mat-form-field appearance="fill" class="col">
+
+                <mat-label>DNI</mat-label>
+                <input matInput formControlName="dni" required>
+                <mat-error *ngIf="dni?.invalid">
+                    DNI invalido
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="contenido">
+            <mat-form-field appearance="fill">
+
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="pepito" formControlName="email" required>
+                <mat-error *ngIf="email?.invalid">
+                    incorrect user
+                </mat-error>
+            </mat-form-field><br>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Celular</mat-label>
+                    <input matInput formControlName="celular">
+                    <mat-error *ngIf="celular?.invalid">
+                        incorrect password
+                    </mat-error>
+                </mat-form-field><br>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono">
+                    <mat-error *ngIf="telefono?.invalid">
+                        incorrect password
+                    </mat-error>
+                </mat-form-field><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Provincia</mat-label>
+                    <mat-select required formControlName="provincia" (valueChange)="allowCities($event)">
+                        <mat-option *ngFor="let provincia of provinces" [value]="provincia.nombre">
+                            {{provincia.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="provincia?.invalid">
+                        Debe rellenar este campo
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Ciudad</mat-label>
+                    <mat-select formControlName="ciudad" >
+
+                        <mat-option *ngFor="let municipality of municipalities" [value]="municipality.nombre"> 
+                            {{municipality.nombre}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="myForm.value.provincia != null">
+                        Debe rellenar este campo
+                    </mat-error>
+
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Domicilio</mat-label>
+                    <input matInput formControlName="domicilio" required>
+                    <mat-error *ngIf="domicilio?.invalid">
+                        Debe rellenar este campo
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="contenido">
+            <mat-form-field appearance="fill">
+
+                <mat-label>Fecha de Nacimiento:</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+
+            </mat-form-field>
+        </div>
+        <div class="contenido">
+            <mat-form-field appearance="fill">
+
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="usuario" required>
+                <mat-error *ngIf="myForm.controls.usuario.status === 'INVALID' && 
+                            !myForm.controls.usuario.errors?.usernameTaken">
+                    Nombre de usuario incorrecto
+                </mat-error>
+                <mat-error *ngIf="myForm.controls.usuario.errors?.usernameTaken">
+                    Ya existe un usuario con ese nombre
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="contenido">
+            <mat-form-field appearance="fill">
+
+                <mat-label>Contrase&ntilde;a</mat-label>
+                <input matInput formControlName="password" required>
+                <mat-error *ngIf="password?.invalid">
+                    incorrect password
+                </mat-error>
+            </mat-form-field><br>
+        </div>
+        <div>
+            <button class="btn btn-primary" matStepperNext="myForm.status == 'VALID'" (click)="mostrarDatos()">Next</button>
+        </div>
+    </div>
+</form>

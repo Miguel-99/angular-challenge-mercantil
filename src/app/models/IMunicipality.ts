@@ -1,4 +1,4 @@
-import { IProvince } from "./IProvince";
-
-export interface IMunicipality extends IProvince{
+export interface IMunicipality {
+    id: string;
+    nombre: string;
 }
