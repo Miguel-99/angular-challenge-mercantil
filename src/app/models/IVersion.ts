@@ -1,4 +1,4 @@
 export interface IVersion {
-    description: string;
+    desc: string;
     codigo: number;
 }

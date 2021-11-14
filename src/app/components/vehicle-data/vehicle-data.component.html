@@ -1,1 +1,55 @@
-<p>vehicle-data works!</p>
+<form [formGroup]="myForm">
+    <div class="container">
+        {{myForm.value | json}}
+        <div class="row">
+            <mat-form-field appearance="fill">
+
+                <mat-label>Marcas</mat-label>
+                <mat-select required formControlName="marca">
+                    <mat-option *ngFor="let brand of brands" [value]="brand.desc">
+                        {{brand.desc}}
+                    </mat-option>
+                </mat-select>
+
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>A&ntilde;o</mat-label>
+                <mat-select required formControlName="anio" (selectionChange)="loadModels()" >
+                    <mat-option *ngFor="let year of years" [value]="year">
+                        {{year}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>modelos</mat-label>
+                <mat-select required formControlName="modelo" (selectionChange)="loadVersions()">
+                    <mat-option *ngFor="let model of models" [value]="model">
+                        {{model}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <div class="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Version</mat-label>
+                <mat-select required formControlName="version">
+                    <mat-option *ngFor="let version of versions" [value]="version.desc">
+                        {{version.desc}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <button class="btn btn-primary" matStepperNext="myForm.status == 'VALID'"
+                >Next</button>
+        </div>
+    </div>
+</form>
