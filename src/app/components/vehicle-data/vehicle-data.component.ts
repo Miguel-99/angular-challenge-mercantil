@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IBrand } from 'src/app/models/IBrand';
 import { IModel } from 'src/app/models/IModel';
 import { IVersion } from 'src/app/models/IVersion';
@@ -23,9 +23,9 @@ export class VehicleDataComponent implements OnInit {
     private coverageService: CoverageService
   ) {
     this.myForm = this.fb.group({
-      marca: ['', []],
-      modelo: ['', []],
-      anio: ['', []],
+      marca: ['', [Validators.required]],
+      modelo: ['', [Validators.required]],
+      anio: ['', [Validators.required]],
       version: ['', []]
     });
   }

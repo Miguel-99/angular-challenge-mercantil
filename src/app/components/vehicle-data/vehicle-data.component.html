@@ -40,7 +40,7 @@
         <div class="row">
             <mat-form-field appearance="fill">
                 <mat-label>Version</mat-label>
-                <mat-select required formControlName="version">
+                <mat-select formControlName="version">
                     <mat-option *ngFor="let version of versions" [value]="version.desc">
                         {{version.desc}}
                     </mat-option>
