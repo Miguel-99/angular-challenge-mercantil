@@ -21,6 +21,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressBarModule,
     FormsModule, ReactiveFormsModule,
     HttpClientModule,
     CommonModule

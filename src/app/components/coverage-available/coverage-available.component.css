@@ -1,0 +1,7 @@
+.example-card {
+    margin-bottom: 8px;
+}
+
+.mat-card-title {
+    text-decoration: underline;
+}
