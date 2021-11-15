@@ -1,5 +1,5 @@
 import { IProvince } from "./IProvince";
 
-export interface IGeoRefApiResponse {
+export interface IGeoRefApiProvincesResponse {
     provincias: IProvince[];
 }
