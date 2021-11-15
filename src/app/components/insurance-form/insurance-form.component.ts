@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout'
 import { StepperOrientation } from '@angular/cdk/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ICoverage } from 'src/app/models/ICoverage';
 
 @Component({
   selector: 'app-insurance-form',
@@ -11,29 +12,35 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./insurance-form.component.css']
 })
 export class InsuranceFormComponent implements OnInit {
-  
-  firstFormGroup = this.fb.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this.fb.group({
-    secondCtrl: ['', Validators.required],
-  });
-  thirdFormGroup = this.fb.group({
-    thirdCtrl: ['', Validators.required],
-  });
+
+  personalForm: FormGroup;
+  vehicleForm: FormGroup;
+  coverageForm: ICoverage;
 
   public stepperOrientation: Observable<StepperOrientation>;
 
   constructor(
     private fb: FormBuilder,
     public breakpointObserver: BreakpointObserver
-  ) { 
+  ) {
     this.stepperOrientation = breakpointObserver
-    .observe('(min-width: 800px)')
-    .pipe(map(({ matches }) => matches ? 'horizontal' : 'vertical'));
+      .observe('(min-width: 800px)')
+      .pipe(map(({ matches }) => matches ? 'horizontal' : 'vertical'));
   }
 
   ngOnInit(): void {
   }
 
+  setPersonalForm(formGroup: FormGroup) {
+    this.personalForm = formGroup;
+  }
+
+
+  setVehicleForm(formGroup: FormGroup) {
+    this.vehicleForm = formGroup;
+  }
+
+  setCoverageForm(formGroup: ICoverage) {
+    this.coverageForm = formGroup;
+  }
 }

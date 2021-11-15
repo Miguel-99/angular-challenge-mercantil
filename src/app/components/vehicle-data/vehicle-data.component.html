@@ -1,6 +1,5 @@
 <form [formGroup]="myForm">
     <div class="container">
-        {{myForm.value | json}}
         <div class="row">
             <mat-form-field appearance="fill">
 
@@ -17,7 +16,7 @@
         <div class="row">
             <mat-form-field appearance="fill">
                 <mat-label>A&ntilde;o</mat-label>
-                <mat-select required formControlName="anio" (selectionChange)="loadModels()" >
+                <mat-select required formControlName="anio" (selectionChange)="loadModels()">
                     <mat-option *ngFor="let year of years" [value]="year">
                         {{year}}
                     </mat-option>
@@ -47,9 +46,9 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div>
-            <button class="btn btn-primary" matStepperNext="myForm.status == 'VALID'"
-                >Next</button>
+        <div class="d-flex justify-content-between">
+            <button matStepperPrevious class="btn btn-primary col-1">Back</button>
+            <button (click)="sendEvent(myForm)" class="btn btn-primary col-1" matStepperNext="myForm.status == 'VALID'">Next</button>
         </div>
     </div>
 </form>

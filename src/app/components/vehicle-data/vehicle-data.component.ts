@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IBrand } from 'src/app/models/IBrand';
 import { IModel } from 'src/app/models/IModel';
 import { IVersion } from 'src/app/models/IVersion';
 import { CoverageService } from 'src/app/services/coverage/coverage.service';
+import { VehicleService } from 'src/app/services/vehicle/vehicle.service';
 
 @Component({
   selector: 'app-vehicle-data',
@@ -11,6 +12,8 @@ import { CoverageService } from 'src/app/services/coverage/coverage.service';
   styleUrls: ['./vehicle-data.component.css']
 })
 export class VehicleDataComponent implements OnInit {
+
+  @Output() itemEvent = new EventEmitter<FormGroup>();
 
   myForm: FormGroup;
   brands: IBrand[];
@@ -20,7 +23,7 @@ export class VehicleDataComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private coverageService: CoverageService
+    private vehicleService: VehicleService
   ) {
     this.myForm = this.fb.group({
       marca: ['', [Validators.required]],
@@ -37,7 +40,7 @@ export class VehicleDataComponent implements OnInit {
   }
 
   loadBrands(): void {
-    this.coverageService.getBrands().subscribe(
+    this.vehicleService.getBrands().subscribe(
       (data: IBrand[]) => {
         this.brands = data;
       }
@@ -56,7 +59,7 @@ export class VehicleDataComponent implements OnInit {
   }
 
   loadModels(): void {
-    this.coverageService.getModels(
+    this.vehicleService.getModels(
       this.findCodeCarByCarName(this.myForm.value.marca), this.myForm.value.anio)
       .subscribe(
         (data: String[]) => {
@@ -70,7 +73,7 @@ export class VehicleDataComponent implements OnInit {
   }
 
   loadVersions(): void {
-    this.coverageService.getVersions(
+    this.vehicleService.getVersions(
       this.findCodeCarByCarName(this.myForm.value.marca)!,
       this.myForm.value.anio,
       this.myForm.value.modelo
@@ -80,5 +83,9 @@ export class VehicleDataComponent implements OnInit {
           this.versions = data;
         }
       );
+  }
+  
+  sendEvent(value: FormGroup) {
+    this.itemEvent.emit(value);
   }
 }

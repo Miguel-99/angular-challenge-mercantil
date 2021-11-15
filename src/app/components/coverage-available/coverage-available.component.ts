@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ICoverage } from 'src/app/models/ICoverage';
 import { CoverageService } from 'src/app/services/coverage/coverage.service';
 
@@ -9,8 +10,10 @@ import { CoverageService } from 'src/app/services/coverage/coverage.service';
 })
 export class CoverageAvailableComponent implements OnInit {
 
+  @Output() itemEvent = new EventEmitter<ICoverage>();
+
   coverages: ICoverage[];
-  coverageSelected: number;
+  coverageSelected: ICoverage;
 
   constructor(private coverageService: CoverageService) { }
 
@@ -22,7 +25,7 @@ export class CoverageAvailableComponent implements OnInit {
       , 1000);
   }
   highlightSelection(coverage: ICoverage): void {
-    this.coverageSelected = coverage.numero;
+    this.coverageSelected = coverage;
   }
 
   getCoverages(): void {
@@ -38,5 +41,10 @@ export class CoverageAvailableComponent implements OnInit {
 
   createRange(number: number): number[] {
     return new Array(number);
+  }
+
+  sendEvent(coverage: ICoverage){
+    console.log("enviando datos de cobertura al padre");
+    this.itemEvent.emit(coverage);
   }
 }

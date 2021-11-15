@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IGeoRefApiMunicipalitiesResponse } from 'src/app/models/IGeoRefApiMunicipalitiesResponse';
-import { IGeoRefApiResponse } from 'src/app/models/IGeoRefProvincesApiResponse';
+import { IGeoRefApiProvincesResponse } from 'src/app/models/IGeoRefApiProvincesResponse';
 import { IMunicipality } from 'src/app/models/IMunicipality';
 import { IProvince } from 'src/app/models/IProvince';
 import { GeoRefArService } from 'src/app/services/geo-ref-ar/geo-ref-ar.service';
@@ -16,6 +16,7 @@ import { usernameValidator } from '../shared/validations/usernameValidation';
 })
 export class PersonalDataComponent implements OnInit {
 
+  @Output() itemEvent = new EventEmitter<FormGroup>();
   myForm: FormGroup;
   provinces: IProvince[];
   municipalities: IMunicipality[];
@@ -45,21 +46,13 @@ export class PersonalDataComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.myForm);
     this.loadProvinces();
     this.ciudad?.disable();
-    setTimeout(() => {
-      console.log(this.provinces, this.municipalities), 1000;
-    });
-  }
-
-  mostrarDatos(): void {
-    console.log(this.myForm);
   }
 
   private loadProvinces(): void {
     this.geoService.getProvinces().subscribe(
-      (res: IGeoRefApiResponse) => {
+      (res: IGeoRefApiProvincesResponse) => {
         this.provinces = res.provincias;
       }
     );
@@ -68,7 +61,6 @@ export class PersonalDataComponent implements OnInit {
   private loadCities(provinceName: string): void {
     this.geoService.getCities(provinceName).subscribe(
       (res: IGeoRefApiMunicipalitiesResponse) => {
-        console.log(res);
         this.municipalities = res.municipios;
       }
     )
@@ -82,6 +74,10 @@ export class PersonalDataComponent implements OnInit {
     this.myForm.controls.ciudad.enable();
     this.loadCities(this.findMunicipalityByName(e)?.id || '');
 
+  }
+
+  sendEvent(value: FormGroup){
+    this.itemEvent.emit(value);
   }
 
   get password() {
