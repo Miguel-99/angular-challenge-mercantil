@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ICoverage } from 'src/app/models/ICoverage';
 
 @Component({
   selector: 'app-summary-form',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SummaryFormComponent implements OnInit {
 
+  @Input() personalDataForm: FormGroup;
+  @Input() vehicleDataForm: FormGroup;
+  @Input() coverageDataForm: ICoverage;
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
